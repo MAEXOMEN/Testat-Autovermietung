@@ -1,14 +1,18 @@
-
+import java.util.Date;
 
 public class Dokument {
 
-	private long erstellungsdatum;
-	private int seitenanzahl;
-	private long enddatumarchivierung;
+	private Date erstellungsdatum;
+	private Date enddatumarchivierung;
 	
-	{ this.erstellungsdatum = 0; this.seitenanzahl = 1; this.enddatumarchivierung = 0; }
+	{ this.erstellungsdatum = new Date (); this.enddatumarchivierung = new Date (); }
 	
-	public Dokument () {
+	@SuppressWarnings("deprecation")
+	public Dokument (Date erstellungsdatum, int archivierungsJahreAnzahl) {
+	
+		this.erstellungsdatum = erstellungsdatum;
+		this.enddatumarchivierung = new Date (erstellungsdatum.getTime());
+		this.enddatumarchivierung.setYear(this.enddatumarchivierung.getYear() + archivierungsJahreAnzahl);
 		
 	}
 	
@@ -16,34 +20,26 @@ public class Dokument {
 		
 		long jetzt = System.currentTimeMillis ();
 		
-		if (jetzt > this.enddatumarchivierung)
+		if (jetzt > this.enddatumarchivierung.getTime())
 			return true;
 		
 		return false;
 		
 	}
 
-	public long getErstellungsdatum() {
+	public Date getErstellungsdatum() {
 		return erstellungsdatum;
 	}
 
-	public void setErstellungsdatum(long erstellungsdatum) {
+	public void setErstellungsdatum(Date erstellungsdatum) {
 		this.erstellungsdatum = erstellungsdatum;
 	}
 
-	public int getSeitenanzahl() {
-		return seitenanzahl;
-	}
-
-	public void setSeitenanzahl(int seitenanzahl) {
-		this.seitenanzahl = seitenanzahl;
-	}
-
-	public long getEnddatumarchivierung() {
+	public Date getEnddatumarchivierung() {
 		return enddatumarchivierung;
 	}
 
-	public void setEnddatumarchivierung(long enddatumarchivierung) {
+	public void setEnddatumarchivierung(Date enddatumarchivierung) {
 		this.enddatumarchivierung = enddatumarchivierung;
 	}
 	

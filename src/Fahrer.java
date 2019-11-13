@@ -1,29 +1,19 @@
+import java.util.Date;
 
 public class Fahrer extends Mensch {
-
+	
 	private String[] führerscheinklassen;
-	private String ausweisnummer;
+	private Mieter mieter;
 	
-	public Fahrer (String vorname, String nachname, long geburtsdatum) {
+	private Mietvertrag[] mietverträge;
+	private int letzterIndex;
+
+	{ this.führerscheinklassen = new String [10]; this.mieter = null; this.mietverträge = new Mietvertrag [100]; this.letzterIndex = 0; }
+	
+	public Fahrer (String vorname, String nachname, Date geburtsdatum, String[] führerscheinklassen) {
 		super (vorname, nachname, geburtsdatum);
-	}
-	
-	public Fahrer (String vorname, String nachname, long geburtsdatum, String ausweisnummer) {
-		this (vorname, nachname, geburtsdatum);
-		this.ausweisnummer = ausweisnummer;
-	}
-	
-	public Fahrer (String vorname, String nachname, long geburtsdatum, String[] führerscheinklassen) {
-		this (vorname, nachname, geburtsdatum);
 		this.führerscheinklassen = führerscheinklassen;
 	}
-	
-	public Fahrer (String vorname, String nachname, long geburtsdatum, String[] führerscheinklassen, String ausweisnummer) {
-		this (vorname, nachname, geburtsdatum, führerscheinklassen);
-		this.ausweisnummer = ausweisnummer;
-	}
-	
-	
 	
 	public boolean darfAutoFahren (Auto auto) {
 		
@@ -36,13 +26,23 @@ public class Fahrer extends Mensch {
 		return false;
 	}
 
+	public void addMietvertrag (Mietvertrag mietvertrag) {
+		
+		if (this.letzterIndex >= this.mietverträge.length) {
+			System.out.println ("[INFORMATION]: Sie haben das Limit an Mietverträgen erreicht.");
+			return;
+		}
+		
+		this.mietverträge [letzterIndex] = mietvertrag;
+		this.letzterIndex ++;
+	}
+	
 	// getter:
-	public String[] getFührerscheinklassen () { return führerscheinklassen; }
-	public String getAusweisnummer () { return ausweisnummer; }
+	public String[] getFührerscheinklassen () { return this.führerscheinklassen; }
+	public Mieter getMieter () {return this.mieter;}
 
 	// setter:
 	public void setFührerscheinklassen (String[] führerscheinklassen) { this.führerscheinklassen = führerscheinklassen; }
-	public void setAusweisnummer (String ausweisnummer) { this.ausweisnummer = ausweisnummer; }
+	public void setMieter (Mieter mieter) { this.mieter = mieter; }
 
-	
 }

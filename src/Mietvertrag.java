@@ -1,64 +1,100 @@
+import java.util.Date;
 
 public class Mietvertrag extends Dokument {
 
 	private int mietdauerInTagen;
-	private long mietStartdatum;
-	private boolean vorzeitigGekündigt;
-	private long kündigbarBisDatum;
+	private Date mietStartdatum;
+	private Date kündigbarBisDatum;
 	
-	{ this.mietdauerInTagen = 0; this.mietStartdatum = 0; this.vorzeitigGekündigt = false; this.kündigbarBisDatum = 0; }
+	private Auto auto;
+	private Mieter mieter;
 	
-	public Mietvertrag (int mietdauerInTagen, long mietStartdatum, long kündigbarBisDatum) {
+	private Fahrer [] fahrer;
+	private int letzterIndex;
+	
+	private Rechnung rechnung;
+	
+	{ this.mietdauerInTagen = 0; this.mietStartdatum = new Date (); this.kündigbarBisDatum = new Date (); this.fahrer = new Fahrer [100]; this.letzterIndex = 0; }
+	
+	public Mietvertrag (Auto auto, Mieter mieter, Fahrer[] fahrer, int mietdauerInTagen, Date mietStartdatum, Date kündigbarBisDatum) {
+		
+		super (new Date (), 10);
+		
 		this.mietStartdatum = mietStartdatum;
 		this.mietdauerInTagen = mietdauerInTagen;
-		this.vorzeitigGekündigt = false;
 		this.kündigbarBisDatum = kündigbarBisDatum;
+		
+		this.auto = auto;
+		this.auto.setMietvertrag (this);
+		
+		this.mieter = mieter;
+		this.mieter.addMietvertrag (this);
+		
+		for (int index = 0; index < fahrer.length; index++) {
+			this.fahrer [this.letzterIndex] = fahrer [index];
+			this.fahrer [this.letzterIndex].addMietvertrag (this);
+			this.letzterIndex ++;
+		}
+			
+		
 	}
 	
 	public boolean kannGekündigtWerden () {
 		
 		long jetzt = System.currentTimeMillis();
 		
-		if (jetzt < this.kündigbarBisDatum) 
+		if (jetzt < this.kündigbarBisDatum.getTime()) 
 			return true;
 		
-		if (jetzt > this.mietStartdatum + this.mietdauerInTagen * 24 * 60 * 60 * 1000) 
+		if (jetzt > this.mietStartdatum.getTime() + this.mietdauerInTagen * 24 * 60 * 60 * 1000) 
 			return true;
 		
 		return false;
 		
 	}
 
-	public int getMietdauerInTagen() {
-		return mietdauerInTagen;
+	// getter:
+	public Auto getAuto() { return this.auto; }
+	public Fahrer[] getFahrer() { return this.fahrer; }
+	public Mieter getMieter () { return this.mieter; }
+	public int getMietdauerInTagen () { return this.mietdauerInTagen; }
+	public Date getMietStartdatum () { return this.mietStartdatum; }
+	public Date getKündigbarBisDatum() { return this.kündigbarBisDatum; }
+	public Rechnung getRechnung () { return this.rechnung; }
+	
+	// setter:
+	public void setAuto(Auto auto) { 
+		
+		// den Mietvertrag aus dem alten Auto nehmen
+		this.auto.setMietvertrag(null);
+		
+		// neues Auto setzen
+		this.auto = auto; 
+		
+		// den Mietvertrag in das neue Auto setzen
+		this.auto.setMietvertrag(this); 
 	}
-
-	public void setMietdauerInTagen(int mietdauerInTagen) {
-		this.mietdauerInTagen = mietdauerInTagen;
+	
+	public void addFahrer(Fahrer[] fahrer) { 
+		
+		for (int index = 0; index < fahrer.length; index++) {
+			
+			if (this.letzterIndex >= this.fahrer.length) {
+				System.out.println ("[INFORMATION]: Sie haben das Limit an Fahrern erreicht.");
+				return;
+			}
+			
+			this.fahrer [this.letzterIndex] = fahrer [index];
+			this.fahrer [this.letzterIndex].addMietvertrag (this);
+			this.letzterIndex ++;
+		}
+		
 	}
-
-	public long getMietStartdatum() {
-		return mietStartdatum;
-	}
-
-	public void setMietStartdatum(long mietStartdatum) {
-		this.mietStartdatum = mietStartdatum;
-	}
-
-	public boolean isVorzeitigGekündigt() {
-		return vorzeitigGekündigt;
-	}
-
-	public void setVorzeitigGekündigt(boolean vorzeitigGekündigt) {
-		this.vorzeitigGekündigt = vorzeitigGekündigt;
-	}
-
-	public long getKündigbarBisDatum() {
-		return kündigbarBisDatum;
-	}
-
-	public void setKündigbarBisDatum(long kündigbarBisDatum) {
-		this.kündigbarBisDatum = kündigbarBisDatum;
-	}
+	
+	public void setRechnung (Rechnung rechnung) { this.rechnung = rechnung; }
+	public void setMietdauerInTagen (int mietdauerInTagen) { this.mietdauerInTagen = mietdauerInTagen; }
+	public void setMietStartdatum (Date mietStartdatum) { this.mietStartdatum = mietStartdatum; }
+	public void setKündigbarBisDatum (Date kündigbarBisDatum) { this.kündigbarBisDatum = kündigbarBisDatum; }
+	
 	
 }

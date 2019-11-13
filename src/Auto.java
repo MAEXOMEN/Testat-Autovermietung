@@ -7,18 +7,23 @@ public class Auto {
 	private String benötigteFührerscheinklasse;
 	private double verbrauchPro100KmInLiter;
 	
+	private Mietvertrag mietvertrag;
+	
 	{
 		this.kilometerstand = 0;
-		this.tankvolumentInLiter = 10;
+		this.tankvolumentInLiter = 0;
 		this.aktuellerTankfüllstand = 0;
 		this.benötigteFührerscheinklasse = null;
+		this.mietvertrag = null;
+		this.verbrauchPro100KmInLiter = 0;
 		
 	}
 	
-	public Auto (long kilometerstand, int tankvolumentInLiter, int aktuellerTankfüllstand, String benötigteFührerscheinklasse) {
+	public Auto (long kilometerstand, int tankvolumentInLiter, int aktuellerTankfüllstand, double verbrauchPro100KmInLiter, String benötigteFührerscheinklasse) {
 		this.kilometerstand = kilometerstand;
 		this.tankvolumentInLiter = tankvolumentInLiter;
 		this.aktuellerTankfüllstand = aktuellerTankfüllstand;
+		this.verbrauchPro100KmInLiter = verbrauchPro100KmInLiter;
 		this.benötigteFührerscheinklasse = benötigteFührerscheinklasse;
 	}
 	
@@ -50,45 +55,23 @@ public class Auto {
 	}
 	
 	
-	public double getVerbrauchPro100KmInLiter() {
-		return verbrauchPro100KmInLiter;
-	}
-
-	public void setVerbrauchPro100KmInLiter(double verbrauchPro100KmInLiter) {
-		this.verbrauchPro100KmInLiter = verbrauchPro100KmInLiter;
-	}
-
-	public String getBenötigteFührerscheinklasse () {
-		return this.benötigteFührerscheinklasse;
-	}
-
-	public double getKilometerstand() {
-		return kilometerstand;
-	}
-
-	public void setKilometerstand(double kilometerstand) {
-		this.kilometerstand = kilometerstand;
-	}
-
-	public int getTankvolumentInLiter() {
-		return tankvolumentInLiter;
-	}
-
-	public void setTankvolumentInLiter(int tankvolumentInLiter) {
-		this.tankvolumentInLiter = tankvolumentInLiter;
-	}
-
-	public double getAktuellerTankfüllstand() {
-		return aktuellerTankfüllstand;
-	}
-
-	public void setAktuellerTankfüllstand(double aktuellerTankfüllstand) {
-		this.aktuellerTankfüllstand = aktuellerTankfüllstand;
-	}
-
-	public void setBenötigteFührerscheinklasse(String benötigteFührerscheinklasse) {
-		this.benötigteFührerscheinklasse = benötigteFührerscheinklasse;
-	}
+	// getter:
+	public double getVerbrauchPro100KmInLiter() { return verbrauchPro100KmInLiter; }
+	public String getBenötigteFührerscheinklasse () { return this.benötigteFührerscheinklasse; }
+	public double getKilometerstand() { return kilometerstand; }
+	public int getTankvolumentInLiter() { return tankvolumentInLiter; }
+	public double getAktuellerTankfüllstand() { return aktuellerTankfüllstand; }
+	public Mietvertrag getMietvertrag() { return mietvertrag; }
+	
+	// setter:
+	public void setVerbrauchPro100KmInLiter(double verbrauchPro100KmInLiter) { this.verbrauchPro100KmInLiter = verbrauchPro100KmInLiter; }
+	public void setKilometerstand(double kilometerstand) { this.kilometerstand = kilometerstand; }
+	public void setTankvolumentInLiter(int tankvolumentInLiter) { this.tankvolumentInLiter = tankvolumentInLiter; }
+	public void setAktuellerTankfüllstand(double aktuellerTankfüllstand) { this.aktuellerTankfüllstand = aktuellerTankfüllstand; }
+	public void setBenötigteFührerscheinklasse(String benötigteFührerscheinklasse) { this.benötigteFührerscheinklasse = benötigteFührerscheinklasse; }
+	public void setMietvertrag(Mietvertrag mietvertrag) { this.mietvertrag = mietvertrag; }
+	
+	
 	
 	
 	

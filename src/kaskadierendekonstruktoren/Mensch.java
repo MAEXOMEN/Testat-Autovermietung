@@ -1,12 +1,12 @@
+package kaskadierendekonstruktoren;
+
 import java.util.Date;
 
 public class Mensch {
 
 	private String vorname;
 	private String nachname;
-	private Date geburtsdatum; // UNIX Timestamp
-	
-	{ this.vorname = null; this.nachname = null; this.geburtsdatum = new Date (); }
+	private Date geburtsdatum;
 	
 	public Mensch (String vorname, String nachname, Date geburtsdatum) {
 		this.vorname = vorname;
@@ -26,17 +26,9 @@ public class Mensch {
 		return false;
 		
 	}
-
-	// getter:
-	public String getVorname () { return vorname; }
-	public String getNachname () { return nachname; }
-	public Date getGeburtsdatum () { return geburtsdatum; }
-
-	// setter:
-	public void setVorname (String vorname) { this.vorname = vorname; }
-	public void setNachname (String nachname) { this.nachname = nachname; }
-	public void setGeburtsdatum (Date geburtsdatum) { this.geburtsdatum = geburtsdatum; }
 	
+	public String getUnterschrift () {
+		return this.vorname.substring(0, 1) + ". " + this.nachname;
+	}
 	
-
 }
